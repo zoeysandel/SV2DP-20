@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 
-public class ReizigerDAOsql implements ReizigerDAO {
+public class ReizigerDAOPsql implements ReizigerDAO {
     Connection conn;
 
-    public ReizigerDAOsql(Connection conn) {
+    public ReizigerDAOPsql(Connection conn) {
         this.conn = conn;
     }
 
@@ -34,9 +34,9 @@ public class ReizigerDAOsql implements ReizigerDAO {
     }
 
     @Override
-    public boolean update(Reiziger reiziger) throws SQLException {
+    public boolean update(Reiziger reiziger) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("UPDATE reiziger SET voorletters =?, tussenvoegsel =?, achternaam =?, geboortedatum =? WHERE id =?");
+            PreparedStatement stmt = conn.prepareStatement("UPDATE reiziger SET voorletters =?, tussenvoegsel =?, achternaam =?, geboortedatum =? WHERE reiziger_id =?");
             stmt.setString(1, reiziger.getVoorletters());
             stmt.setString(2, reiziger.getTussenvoegsel());
             stmt.setString(3, reiziger.getAchternaam());
@@ -115,7 +115,7 @@ public class ReizigerDAOsql implements ReizigerDAO {
     }
 
     @Override
-    public List<Reiziger> findAll() throws SQLException {
+    public List<Reiziger> findAll()  {
         List<Reiziger> reizigers = new ArrayList<Reiziger>();
 
         try {
